@@ -257,6 +257,9 @@ int nandroid_backup(const char* backup_path)
     if (0 != (ret = nandroid_backup_partition(backup_path, "/recovery")))
         return ret;
 
+    if (0 != (ret = nandroid_backup_partition(backup_path, "/kernel")))
+        return ret;
+
     Volume *vol = volume_for_path("/wimax");
     if (vol != NULL && 0 == stat(vol->device, &s))
     {
@@ -532,6 +535,8 @@ int nandroid_restore(const char* backup_path, int restore_boot, int restore_syst
     if (restore_boot && NULL != volume_for_path("/boot") && 0 != (ret = nandroid_restore_partition(backup_path, "/boot")))
         return ret;
     
+    if (NULL != volume_for_path("/kernel") && 0 != (ret = nandroid_restore_partition(backup_path, "/kernel")))
+        return ret;
     struct stat s;
     Volume *vol = volume_for_path("/wimax");
     if (restore_wimax && vol != NULL && 0 == stat(vol->device, &s))

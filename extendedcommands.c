@@ -1217,7 +1217,7 @@ int is_path_mounted(const char* path) {
 }
 
 int has_datadata() {
-    Volume *vol = volume_for_path("/datadata");
+    Volume *vol = volume_for_path("/userdata");
     return vol != NULL;
 }
 
